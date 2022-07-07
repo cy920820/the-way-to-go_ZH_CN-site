@@ -1,0 +1,17 @@
+{
+  "name": "the-way-to-go_ZH_CN-site",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:serve": "vitepress serve docs"
+  },
+  "license": "CC BY-SA 3.0 License",
+  "devDependencies": {
+    "vitepress": "^1.0.0-alpha.4",
+    "vue": "^3.2.37",
+    "vuepress": "^1.9.7",
+    "vuepress-plugin-auto-sidebar": "^2.4.0-alpha.5"
+  }
+}
