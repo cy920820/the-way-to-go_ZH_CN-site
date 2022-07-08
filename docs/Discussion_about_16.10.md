@@ -1,17 +1,16 @@
 
-
-## 关于本文·16.10.2小结糟糕错误处理的一些见解
+# 关于本文·16.10.2小结糟糕错误处理的一些见解
 
 本文仅表达译者对错误处理的观点，并且觉得原文说的并不很合理，希望不会误导（我个人观点）其他入门读者。
 
-### 关于16.10.2的第一个代码示例
+## 关于16.10.2的第一个代码示例
 
 16.10.2小结中关于错误处理的第一个代码示例是标准且通用的错误处理方式。
 文中认为这种错误处理方式会使你的代码中充满`if err != nil {...}`，认为这样会令人难以分辨正常的程序逻辑与错误处理（难道错误处理不算做正常的程序逻辑么:)）。
 
 **书中代码示例一**：
 
-```Go
+```go
 ... err1 := api.Func1()
 if err1 != nil {
     fmt.Println("err: " + err.Error())
@@ -29,9 +28,7 @@ if err2 != nil {
 1、错误处理也是正常程序逻辑的一部分，程序逻辑不就是对一个操作可能出现的结果进行判断，
 并对每一种结果做相应的后续处理么。错误是我们已知的可能会出现的一种结果，我们也需要处理这种情况，它也是正常逻辑的一部分。显然，把错误单独拎出来，与正常逻辑并列来做对待，并不合理。
 
-
 2、在其他语言中，我们可能会用到 try... catch...语句来对可能出现的错误进行处理，难道你会说try-catch语句让你的代码一团糟，程序逻辑和错误处理混在一起很复杂，让你阅读代码困难么。绝大多数情况下，让你感觉难以阅读甚至恶心（可能形容过度了）的代码绝不会是因为错误处理相关的代码导致的，而是当时写这些代码的人逻辑不清甚至逻辑混乱造成的。
-
 
 3、这个可能和每个人的习惯（自己写代码的思路、风格）或者说适应（看其他人的代码时能很快习惯作者的代码风格）有关，我每次看代码都会先略过错误处理的部分，那么剩下的就是理想情况下的程序逻辑了，如果对某一处心存疑惑那么就再仔细看这部分的代码。毕竟我们写的代码绝大多数情况下是希望它按理想的情况跑的，
 
@@ -43,7 +40,7 @@ _ _ _
 
 **书中代码示例二**：
 
-```Go
+```go
 func httpRequestHandler(w http.ResponseWriter, req *http.Request) {
     err := func () error {
         if req.Method != "GET" {
@@ -69,53 +66,53 @@ func httpRequestHandler(w http.ResponseWriter, req *http.Request) {
 
 **示例一**：
 
-```Go
+```go
 // 目标目录下包含多种Archive格式文件，将其中的'x-msdownload'类型文件移动到其他目录下
 func moveEXE(files []os.FileInfo, aimPath, exePath string) {
-	var numExe, numOther int
-	var fileBuf []byte
-	var fileType types.Type
+ var numExe, numOther int
+ var fileBuf []byte
+ var fileType types.Type
 
-	for _, file := range files {
-		fileName := aimPath + file.Name()
-		newFileName := exePath + file.Name()
+ for _, file := range files {
+  fileName := aimPath + file.Name()
+  newFileName := exePath + file.Name()
 
-		err := func() error {  
+  err := func() error {  
             
             // 读取文件内容
-			if buf, err := ioutil.ReadFile(fileName); err != nil {
-				log.Printf("Time of read file: %s occur error: %s\n", fileName, err)
-				return err
-			}else {
-				fileBuf = buf
-			}
+   if buf, err := ioutil.ReadFile(fileName); err != nil {
+    log.Printf("Time of read file: %s occur error: %s\n", fileName, err)
+    return err
+   }else {
+    fileBuf = buf
+   }
             
             // 判断文件是否为Archive（压缩）格式
-			if kind, err := filetype.Archive(fileBuf); err!= nil {
-				log.Printf("Time of judge file type occur error: %s\n", err)
-				return err
-			}else {
-				fileType = kind
-			}
+   if kind, err := filetype.Archive(fileBuf); err!= nil {
+    log.Printf("Time of judge file type occur error: %s\n", err)
+    return err
+   }else {
+    fileType = kind
+   }
             
             // 文件是否为'x-msdownload'类型
-			if fileSubType := fileType.MIME.Subtype; fileSubType == "x-msdownload" {
-				log.Printf("file : %s is exe file\n", fileName)
-				if err := os.Rename(fileName, newFileName); err != nil {
-					log.Printf("mv file: %s faile, error is: %s\n", fileName, err)
-					return err
-				}
-				numExe ++
-			}else {
-				log.Println("no exe")
-				numOther ++
-			}
-			return nil
-		}()
+   if fileSubType := fileType.MIME.Subtype; fileSubType == "x-msdownload" {
+    log.Printf("file : %s is exe file\n", fileName)
+    if err := os.Rename(fileName, newFileName); err != nil {
+     log.Printf("mv file: %s faile, error is: %s\n", fileName, err)
+     return err
+    }
+    numExe ++
+   }else {
+    log.Println("no exe")
+    numOther ++
+   }
+   return nil
+  }()
 
-		if err != nil {
-			continue
-		}
+  if err != nil {
+   continue
+  }
     }
     log.Printf("exe file num is: %d, other file num is: %d", numExe, numOther)
 }
@@ -125,48 +122,48 @@ func moveEXE(files []os.FileInfo, aimPath, exePath string) {
 
 **示例二**：
 
-```Go
+```go
 
 // 目标目录下包含多种Archive格式文件，将其中的'x-msdownload'类型文件移动到其他目录下
 func moveEXE(files []os.FileInfo, aimPath, exePath string) {
-	var numExe, numOther int
+ var numExe, numOther int
 
-	for _, file := range files {
-		fileName := aimPath + file.Name()
-		newFileName := exePath + file.Name()
-		
+ for _, file := range files {
+  fileName := aimPath + file.Name()
+  newFileName := exePath + file.Name()
+  
         // 读取文件内容
-		buf, err := ioutil.ReadFile(fileName)
-		if err != nil {
-			log.Printf("read file:%s  occur error\n", fileName)
-			continue
-		}
-		
+  buf, err := ioutil.ReadFile(fileName)
+  if err != nil {
+   log.Printf("read file:%s  occur error\n", fileName)
+   continue
+  }
+  
         // 判断文件是否为Archive（压缩）格式
-		kind, err := filetype.Archive(buf)
-		if err != nil {
-			log.Println("judge file type error")
-			continue
-		}
+  kind, err := filetype.Archive(buf)
+  if err != nil {
+   log.Println("judge file type error")
+   continue
+  }
 
         // 获取文件具体的类型
-		fileSubType := kind.MIME.Subtype
+  fileSubType := kind.MIME.Subtype
 
         // 文件是否为'x-msdownload'类型
-		if fileSubType == "x-msdownload" {
-			log.Printf("file : %s is exe file\n", fileName)
-			err := os.Rename(fileName, newFileName)
-			if err != nil {
-				log.Printf("mv file: %s faile\n", fileName)
-				continue
-			}
-			numExe ++
-		}else {
-			log.Println("no exe")
-			numOther ++
-		}
-	}
-	log.Printf("exe file num is: %d, other file num is: %d", numExe, numOther)
+  if fileSubType == "x-msdownload" {
+   log.Printf("file : %s is exe file\n", fileName)
+   err := os.Rename(fileName, newFileName)
+   if err != nil {
+    log.Printf("mv file: %s faile\n", fileName)
+    continue
+   }
+   numExe ++
+  }else {
+   log.Println("no exe")
+   numOther ++
+  }
+ }
+ log.Printf("exe file num is: %d, other file num is: %d", numExe, numOther)
 }
 ```
 
@@ -174,9 +171,7 @@ func moveEXE(files []os.FileInfo, aimPath, exePath string) {
 
 ---
 
-
-
-### 关于错误处理的一些延伸
+## 关于错误处理的一些延伸
 
 1、除了使用Go中已经定义好的error，我们也可以根据需要自定义error。
 
@@ -189,45 +184,45 @@ func moveEXE(files []os.FileInfo, aimPath, exePath string) {
 ```go
 
 type parseError struct {
-	File *os.File
-	ErrorInfo string
+ File *os.File
+ ErrorInfo string
 }
 
 
 func (e *parseError) Error() string {
-	errInfo := fmt.Sprintf(
-		"parse file: %s occur error, error info: %s",
-		e.File.Name(),
-		e.ErrorInfo)
-	return errInfo
+ errInfo := fmt.Sprintf(
+  "parse file: %s occur error, error info: %s",
+  e.File.Name(),
+  e.ErrorInfo)
+ return errInfo
 }
 
 
 func parseFile(path string) error {
-	f, err := os.Open(path)
-	if err != nil {
-		return err
-	}
-	defer f.Close()
+ f, err := os.Open(path)
+ if err != nil {
+  return err
+ }
+ defer f.Close()
 
-	var buf [512]byte
-	for {
-		switch num, err := f.Read(buf[:]); {
-		case num < 0:
-			readError := parseError{f, err.Error()}
+ var buf [512]byte
+ for {
+  switch num, err := f.Read(buf[:]); {
+  case num < 0:
+   readError := parseError{f, err.Error()}
              log.Println(readError.Error())
-			return &readError
+   return &readError
             
-		case num == 0:
-			readError := parseError{f, err.Error()}
+  case num == 0:
+   readError := parseError{f, err.Error()}
              log.Println(readError.Error())
-			return &readError
+   return &readError
 
-		case num > 0:
-			fmt.Println(string(buf[:num]))
+  case num > 0:
+   fmt.Println(string(buf[:num]))
              log.Printf("read file: %s contents normally")
-		}
-	}
+  }
+ }
 }
 
 ```
@@ -236,15 +231,15 @@ func parseFile(path string) error {
 
 ```go
 func main()  {
-	err := parseFile("/home/rabbit/go/test_use/test")
-	switch err := err.(type) {
+ err := parseFile("/home/rabbit/go/test_use/test")
+ switch err := err.(type) {
         
-	case *parseError:
+ case *parseError:
         log.Println("parse error: ", err)
         
-	case *os.PathError:
+ case *os.PathError:
         log.Println("path error: ", err)
-	}
+ }
 }
 ```
 
@@ -263,12 +258,12 @@ func handleError(logPath string, err error) {
     }
     
     logFile, _ := os.OpenFile(filepath, os.O_RDWR|os.O_APPEND|os.O_CREATE, 666)
-	defer logFile.Close()
+ defer logFile.Close()
 
-	log.SetOutput(logFile)
-	log.SetPrefix("[FileError]")
-	log.SetFlags(log.Llongfile|log.Ldate|log.Ltime)
-	log.Println(err.Error())
+ log.SetOutput(logFile)
+ log.SetPrefix("[FileError]")
+ log.SetFlags(log.Llongfile|log.Ldate|log.Ltime)
+ log.Println(err.Error())
 }
 ```
 
@@ -276,29 +271,28 @@ func handleError(logPath string, err error) {
 
 ```go
 func parseFile(path string) (err error) {
-	f, err := os.Open(path)
-	if err != nil {
-		return err
-	}
-	defer f.Close()
-	defer func() {handleError("/home/rabbit/go/test_use/log", err)}()
+ f, err := os.Open(path)
+ if err != nil {
+  return err
+ }
+ defer f.Close()
+ defer func() {handleError("/home/rabbit/go/test_use/log", err)}()
 
-	var buf [512]byte
-	for {
-		switch num, err := f.Read(buf[:]); {
+ var buf [512]byte
+ for {
+  switch num, err := f.Read(buf[:]); {
 
-		case num < 0:
-			err := &parseError{f, err.Error()}
-			return err
+  case num < 0:
+   err := &parseError{f, err.Error()}
+   return err
 
-		case num == 0:
-			err := &parseError{f, err.Error()}
-			return err
+  case num == 0:
+   err := &parseError{f, err.Error()}
+   return err
 
-		case num > 0:
-			fmt.Println(string(buf[:num]))
-		}
-	}
+  case num > 0:
+   fmt.Println(string(buf[:num]))
+  }
+ }
 }
 ```
-

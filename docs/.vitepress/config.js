@@ -5,13 +5,14 @@ export default {
   head: [
     ['link', { rel: 'icon', href: '/favicon.ico' }]
   ],
+  ignoreDeadLinks: true,
   themeConfig: {
     logo: '/logo.png',
     smoothScroll: true,
-    algolia: {
-      apiKey: '<API_KEY>',
-      indexName: '<INDEX_NAME>'
-    },
+    // algolia: {
+    //   apiKey: '<API_KEY>',
+    //   indexName: '<INDEX_NAME>'
+    // },
     nav: [
       { text: 'My site', link: 'https://www.0x403.com' },
       { text: 'Github', link: 'https://github.com/unknwon/the-way-to-go_ZH_CN' }
@@ -60,6 +61,7 @@ export default {
             collapsible: true,
             collapsed: false,
             items: [
+              { text: '3.0 编辑器、集成开发环境与其它工具', link: '/03.0' },
               { text: '3.1 Go 开发环境的基本要求', link: '/03.1' },
               { text: '3.2 编辑器和集成开发环境', link: '/03.2' },
               { text: '3.3 调试器', link: '/03.3' },
@@ -99,6 +101,7 @@ export default {
             collapsible: true,
             collapsed: false,
             items: [
+              { text: '5.0 控制结构', link: '/05.0' },
               { text: '5.1 if-else 结构', link: '/05.1' },
               { text: '5.2 测试多返回值函数的错误', link: '/05.2' },
               { text: '5.3 switch 结构', link: '/05.3' },
@@ -112,6 +115,7 @@ export default {
             collapsible: true,
             collapsed: false,
             items: [
+              { text: '6.0 函数 (function)', link: '/06.0' },
               { text: '6.1 介绍', link: '/06.1' },
               { text: '6.2 函数参数与返回值', link: '/06.2' },
               { text: '6.3 传递变长参数', link: '/06.3' },
@@ -131,6 +135,7 @@ export default {
             collapsible: true,
             collapsed: false,
             items: [
+              { text: '7.0 数组与切片', link: '/07.0' },
               { text: '7.1 声明和初始化', link: '/07.1' },
               { text: '7.2 切片', link: '/07.2' },
               { text: '7.3 For-range 结构', link: '/07.3' },
@@ -144,6 +149,7 @@ export default {
             collapsible: true,
             collapsed: false,
             items: [
+              { text: '8.0 Map', link: '/08.0' },
               { text: '8.1 声明、初始化和 make', link: '/08.1' },
               { text: '8.2 测试键值对是否存在及删除元素', link: '/08.2' },
               { text: '8.3 for-range 的配套用法', link: '/08.3' },
@@ -157,6 +163,7 @@ export default {
             collapsible: true,
             collapsed: false,
             items: [
+              { text: '9.0 包 (package)', link: '/09.0' },
               { text: '9.1 标准库概述', link: '/09.1' },
               { text: '9.2 regexp 包', link: '/09.2' },
               { text: '9.3 锁和 sync 包', link: '/09.3' },
@@ -175,6 +182,7 @@ export default {
             collapsible: true,
             collapsed: false,
             items: [
+              { text: '10.0 结构 (struct) 与方法 (method)', link: '/10.0' },
               { text: '10.1 结构体定义', link: '/10.1' },
               { text: '10.2 使用工厂方法创建结构体实例', link: '/10.2' },
               { text: '10.3 使用自定义包中的结构体', link: '/10.3' },
@@ -190,6 +198,7 @@ export default {
             collapsible: true,
             collapsed: false,
             items: [
+              { text: '11.0 接口 (interface) 与反射 (reflection)', link: '/11.0' },
               { text: '11.1 接口是什么', link: '/11.1' },
               { text: '11.2 接口嵌套接口', link: '/11.2' },
               { text: '11.3 类型断言：如何检测和转换接口变量的类型', link: '/11.3' },
@@ -218,6 +227,7 @@ export default {
             collapsible: true,
             collapsed: false,
             items: [
+              { text: '12.0 读写数据', link: '/12.0' },
               { text: '12.1 读取用户的输入', link: '/12.1' },
               { text: '12.2 文件读写', link: '/12.2' },
               { text: '12.3 文件拷贝', link: '/12.3' },
@@ -237,6 +247,7 @@ export default {
             collapsible: true,
             collapsed: false,
             items: [
+              { text: '13.0 错误处理与测试', link: '/13.0' },
               { text: '13.1 错误处理', link: '/13.1' },
               { text: '13.2 运行时异常和 panic', link: '/13.2' },
               { text: '13.3 从 panic 中恢复 (recover)', link: '/13.3' },
@@ -254,6 +265,7 @@ export default {
             collapsible: true,
             collapsed: false,
             items: [
+              { text: '14.0 协程 (goroutine) 与通道 (channel)', link: '/14.0' },
               { text: '14.1 并发、并行和协程', link: '/14.1' },
               { text: '14.2 协程间的信道', link: '/14.2' },
               { text: '14.3 协程的同步：关闭通道-测试阻塞的通道', link: '/14.3' },
@@ -278,6 +290,7 @@ export default {
             collapsible: true,
             collapsed: false,
             items: [
+              { text: '15.0 网络、模板与网页应用', link: '/15.0' },
               { text: '15.1 tcp 服务器', link: '/15.1' },
               { text: '15.2 一个简单的 web 服务器', link: '/15.2' },
               { text: '15.3 访问并读取页面数据', link: '/15.3' },
@@ -304,6 +317,7 @@ export default {
             collapsible: true,
             collapsed: false,
             items: [
+              { text: '16.0 常见的陷阱与错误', link: '/16.0' },
               { text: '16.1 误用短声明导致变量覆盖', link: '/16.1' },
               { text: '16.2 误用字符串', link: '/16.2' },
               { text: '16.3 发生错误时使用 defer 关闭一个文件', link: '/16.3' },
@@ -314,7 +328,6 @@ export default {
               { text: '16.8 误用协程和通道', link: '/16.8' },
               { text: '16.9 闭包和协程的使用', link: '/16.9' },
               { text: '16.10 糟糕的错误处理', link: '/16.10' },
-              { text: '关于 16.10 的讨论', link: '/Discussion_about_16.10' },
             ]
           },
           { 
@@ -322,6 +335,7 @@ export default {
             collapsible: true,
             collapsed: false,
             items: [
+              { text: '17.0 模式', link: '/17.0' },
               { text: '17.1 逗号 ok 模式', link: '/17.1' },
               { text: '17.2 defer 模式', link: '/17.2' },
               { text: '17.3 可见性模式', link: '/17.3' },
@@ -333,6 +347,7 @@ export default {
             collapsible: true,
             collapsed: false,
             items: [
+              { text: '18.0 出于性能考虑的实用代码片段', link: '/18.0' },
               { text: '18.1 字符串', link: '/18.1' },
               { text: '18.2 数组和切片', link: '/18.2' },
               { text: '18.3 映射', link: '/18.3' },
@@ -351,6 +366,7 @@ export default {
             collapsible: true,
             collapsed: false,
             items: [
+              { text: '19.0 构建一个完整的应用程序', link: '/19.0' },
               { text: '19.1 简介', link: '/19.1' },
               { text: '19.2 短网址项目简介', link: '/19.2' },
               { text: '19.3 数据结构', link: '/19.3' },
@@ -368,6 +384,7 @@ export default {
             collapsible: true,
             collapsed: false,
             items: [
+              { text: '20.0 Go 语言在 Google App Engine 的使用', link: '/20.0' },
               { text: '20.1 什么是 Google App Engine？', link: '/20.1' },
               { text: '20.2 云上的 Go', link: '/20.2' },
               { text: '20.3 安装 Go App Engine SDK：为 Go 部署的开发环境', link: '/20.3' },
@@ -383,6 +400,7 @@ export default {
             collapsible: true,
             collapsed: false,
             items: [
+              { text: '21.0 真实世界中 Go 的使用', link: '/21.0' },
               { text: '21.1 Heroku：一个使用 Go 的高度可用一致数据存储', link: '/21.1' },
               { text: '21.2 MROffice：一个使用 Go 的呼叫中心网络电话 (VOIP) 系统', link: '/21.2' },
               { text: '21.3 Atlassian：一个虚拟机群管理系统', link: '/21.3' },

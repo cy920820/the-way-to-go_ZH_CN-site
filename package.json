@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "docs:dev": "vitepress dev docs",
-    "docs:build": "vitepress build docs",
-    "docs:serve": "vitepress serve docs"
+    "dev": "vitepress dev docs",
+    "build": "vitepress build docs",
+    "serve": "vitepress serve docs",
+    "format": "markdownlint-cli2-fix '**/*.md' '#node_modules'"
   },
   "license": "CC BY-SA 3.0 License",
   "devDependencies": {
@@ -13,5 +14,8 @@
     "vue": "^3.2.37",
     "vuepress": "^1.9.7",
     "vuepress-plugin-auto-sidebar": "^2.4.0-alpha.5"
+  },
+  "dependencies": {
+    "markdownlint-cli2": "^0.4.0"
   }
 }
