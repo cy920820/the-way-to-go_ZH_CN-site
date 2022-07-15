@@ -2,7 +2,8 @@
 ===================
 
 本仓库翻译内容转载自：[unknwon's the-way-to-go_ZH_CN](https://github.com/unknwon/the-way-to-go_ZH_CN)
-线上地址：the-way-to-go_ZH_CN.0x403.com
+
+线上地址：https://the-way-to-go_ZH_CN.0x403.com
 
 使用 [vitepress](https://github.com/vuejs/vitepress) 搭建，感谢[netlify](https://www.netlify.com/)提供托管服务。
 
