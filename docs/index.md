@@ -2,19 +2,19 @@
 layout: home
 
 title: 《The Way to Go》中文译本
-titleTemplate: 中文正式名《Go 入门指南》，转载自![the-way-to-go_ZH_CN](https://github.com/unknwon/the-way-to-go_ZH_CN)
+titleTemplate: 中文正式名《Go 入门指南》，转载自![the-way-to-go_ZH_CN](https://github.com/cy920820)
 
 hero:
   # name: The Way to Go
-  text: Chinese Translation:《The Way to Go》
-  tagline: Reprinted from unknwon's repo.
+  text: 中文翻译:《The Way to Go》
+  tagline: 内容转载自 unknwon's 《the-way-to-go_ZH_CN》
   actions:
     - theme: brand
       text: Get Started
       link: /getting-started
     - theme: alt
       text: View on GitHub
-      link: https://github.com/unknwon/the-way-to-go_ZH_CN
+      link: https://github.com/cy920820/the-way-to-go_ZH_CN-site
 
 features:
   - title: 🏗 More
